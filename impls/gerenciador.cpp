@@ -39,3 +39,10 @@ void copiarVetor(int origem[], int destino[], int n) {
         destino[i] = origem[i];
     }
 }
+
+void imprimirVetor(int vet[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << vet[i] << " ";
+    }
+    cout << endl;
+}

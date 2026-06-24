@@ -14,8 +14,39 @@ void bubbleSort(int vet[], int n)
     }
 }
 
-void selectionSort(int vet[], int n);
-void insertionSort(int vet[], int n);
+void selectionSort(int vet[], int n)
+{
+    for (int i = 0; i < n - 1; i++) {
+        int id_menor = i; 
+
+        for (int j = i + 1; j < n; j++) {
+            if (vet[j] < vet[id_menor]) {
+                id_menor = j;
+            }
+        }
+        
+        int temp = vet[i];
+        vet[i] = vet[id_menor];
+        vet[id_menor] = temp;
+    }
+}
+
+void insertionSort(int vet[], int n)
+{
+    for (int i = 1; i < n; i++) {
+        int chave = vet[i]; 
+        int j = i - 1;      
+
+        
+        
+        while (j >= 0 && vet[j] > chave) {
+            vet[j + 1] = vet[j]; 
+            j = j - 1;           
+        }
+        vet[j + 1] = chave;
+    }
+}
+
 void shellSort(int vet[], int n)
 {
     for(int i = n/2; i > 0; i /= 2){
@@ -29,5 +60,6 @@ void shellSort(int vet[], int n)
         }
     }
 }
+
 void quickSort(int vet[], int inicio, int fim);
 void mergeSort(int vet[], int inicio, int fim);

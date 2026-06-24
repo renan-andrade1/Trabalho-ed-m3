@@ -31,19 +31,41 @@ int main(){
 
     int* vetorCopia = new int[n];
 
-    for(int i = 0; i < m; i++) {
-        
-        copiarVetor(matrizVetores[i], vetorCopia, n);
+    for(int j = 0; j < 6; j ++){
 
-        auto inicio = chrono::high_resolution_clock::now();
+        cout << "\n==================================================" << endl;
+        if(j == 0) cout << "Vetores ordenados por Bubble Sort:" << endl;
+        else if(j == 1) cout << "Vetores ordenados por Selection Sort:" << endl;
+        else if(j == 2) cout << "Vetores ordenados por Insertion Sort:" << endl;
+        else if(j == 3) cout << "Vetores ordenados por Shell Sort:" << endl;
+        cout << "==================================================" << endl;
 
-        bubbleSort(vetorCopia, n);
+        for(int i = 0; i < m; i++) {
+            
+            copiarVetor(matrizVetores[i], vetorCopia, n);
 
-        auto fim = chrono::high_resolution_clock::now();
+            if(n <= 20) {
+                cout << "Vetor " << i + 1 << " [Antes]: ";
+                imprimirVetor(vetorCopia, n);
+            }
 
-        chrono::duration<double, milli> tempoDecorrido = fim - inicio;
+            auto inicio = chrono::high_resolution_clock::now();
 
-        cout << "Vetor [" << i + 1 << "] demorou: " << tempoDecorrido.count() << " ms" << endl;
+            if(j == 0)      bubbleSort(vetorCopia, n);
+            else if(j == 1) selectionSort(vetorCopia, n);
+            else if(j == 2) insertionSort(vetorCopia, n);
+            else if(j == 3) shellSort(vetorCopia, n);
+
+            auto fim = chrono::high_resolution_clock::now();
+            chrono::duration<double, milli> tempoDecorrido = fim - inicio;
+
+            if(n <= 20) {
+                cout << "Vetor " << i + 1 << " [Depois]: ";
+                imprimirVetor(vetorCopia, n);
+            }
+            cout << ">> Tempo do Vetor " << i + 1 << ": " << tempoDecorrido.count() << " ms" << endl;
+            cout << "--------------------------------------------------" << endl;
+        }
     }
 
     delete[] vetorCopia;
