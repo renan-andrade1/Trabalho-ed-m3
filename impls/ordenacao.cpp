@@ -1,5 +1,7 @@
 #include "ordenacao.hpp"
+#include <cstring>
 #include <iostream>
+using namespace std;
 
 void bubbleSort(int vet[], int n)
 {
