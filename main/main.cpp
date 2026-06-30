@@ -53,6 +53,8 @@ int main(){
         double somaMelhorCaso = 0.0;
         double somaPiorCaso = 0.0;
         double somaGeralTodosCasos = 0.0;
+        double* somaCaso = new double[m];
+        for(int i = 0; i < m; i++) somaCaso[i] = 0.0;
         
 
         for(int i = 0; i < m; i++) {
@@ -64,10 +66,10 @@ int main(){
 
             
             for(int k1 = 0; k1 < x; k1++){
-                
-                auto inicio = chrono::high_resolution_clock::now();
 
                 copiarVetor(matrizVetores[i], vetorCopia, n); 
+                
+                auto inicio = chrono::high_resolution_clock::now();
 
                 if(j == 0)bubbleSort(vetorCopia, n);
                 else if(j == 1) selectionSort(vetorCopia, n);
@@ -87,6 +89,8 @@ int main(){
                 } else if (i == 1) {
                     somaPiorCaso += tempoAtual;
                 }
+
+                somaCaso[i] += tempoAtual;
 
                 if(x <= 3){
                     cout << ">> Tempo total da repetição " << k1 + 1 << " do Vetor " << i + 1 << ": " << tempoAtual << " ms" << endl;
@@ -111,6 +115,10 @@ int main(){
         cout << "\n>>> ESTATISTICAS DO METODO <<<" << endl;
         cout << "Media de tempo do MELHOR CASO (Vetor 1): " << mediaMelhorCaso << " ms" << endl;
         cout << "Media de tempo do PIOR CASO (Vetor 2):   " << mediaPiorCaso << " ms" << endl;
+        for(int c = 2; c < m; c++){
+            double mediaVetorIndividual = somaCaso[c] / x;
+            cout << "Media de tempo do vetor " << c + 1 << " (Aleatorio): " << mediaVetorIndividual << " ms" << endl;
+        }
         cout << "Media GERAL de TODOS os casos juntos:    " << mediaGeral << " ms" << endl;
         cout << "==================================================" << endl;
     }
