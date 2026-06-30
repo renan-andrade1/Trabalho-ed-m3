@@ -114,12 +114,12 @@ int main(){
 
         cout << "\n>>> ESTATISTICAS DO METODO <<<" << endl;
         cout << "Media de tempo do MELHOR CASO (Vetor 1): " << mediaMelhorCaso << " ms" << endl;
-        cout << "Media de tempo do PIOR CASO (Vetor 2):   " << mediaPiorCaso << " ms" << endl;
+        cout << "Media de tempo do PIOR CASO (Vetor 2): " << mediaPiorCaso << " ms" << endl;
         for(int c = 2; c < m; c++){
             double mediaVetorIndividual = somaCaso[c] / x;
             cout << "Media de tempo do vetor " << c + 1 << " (Aleatorio): " << mediaVetorIndividual << " ms" << endl;
         }
-        cout << "Media GERAL de TODOS os casos juntos:    " << mediaGeral << " ms" << endl;
+        cout << "Media GERAL de TODOS os casos juntos: " << mediaGeral << " ms" << endl;
         cout << "==================================================" << endl;
     }
 
