@@ -1,3 +1,10 @@
+/*
+ALUNO: RENAN FELIPE DE ANDRADE
+MATÉRIA: ESTRUTURA DE DADOS
+M3
+CIENCIA DA COMPUTAÇÃO
+*/
+
 #include <iostream>
 #include "../header/gerenciador.hpp"  
 #include "../header/ordenacao.hpp"
@@ -43,11 +50,10 @@ int main(){
         else if(j == 5) cout << "Vetores ordenados por Merge Sort:" << endl;
         cout << "==================================================" << endl;
 
-        double tempoMax = -1.0; 
-        double tempoMin = 99999999.0;
-        int vetorMaisLento = 0;
-        int vetorMaisRapido = 0;
-        double somaTempos = 0.0;
+        double somaMelhorCaso = 0.0;
+        double somaPiorCaso = 0.0;
+        double somaGeralTodosCasos = 0.0;
+        
 
         for(int i = 0; i < m; i++) {
             
@@ -56,9 +62,11 @@ int main(){
                 imprimirVetor(matrizVetores[i], n);
             }
 
-            auto inicio = chrono::high_resolution_clock::now();
+            
             for(int k1 = 0; k1 < x; k1++){
-        
+                
+                auto inicio = chrono::high_resolution_clock::now();
+
                 copiarVetor(matrizVetores[i], vetorCopia, n); 
 
                 if(j == 0)bubbleSort(vetorCopia, n);
@@ -67,37 +75,43 @@ int main(){
                 else if(j == 3) shellSort(vetorCopia, n);
                 else if(j == 4) quickSort(vetorCopia, 0, n - 1);
                 else if(j == 5) mergeSort(vetorCopia, 0, n - 1);
+
+                auto fim = chrono::high_resolution_clock::now();
+                chrono::duration<double, milli> tempoDecorrido = fim - inicio;
+
+                double tempoAtual = tempoDecorrido.count();
+                somaGeralTodosCasos += tempoAtual; 
+
+                if (i == 0) {
+                    somaMelhorCaso += tempoAtual;
+                } else if (i == 1) {
+                    somaPiorCaso += tempoAtual;
+                }
+
+                if(x <= 3){
+                    cout << ">> Tempo total da repetição " << k1 + 1 << " do Vetor " << i + 1 << ": " << tempoAtual << " ms" << endl;
+                    cout << "--------------------------------------------------" << endl;
+                }
             }
 
-            auto fim = chrono::high_resolution_clock::now();
-            chrono::duration<double, milli> tempoDecorrido = fim - inicio;
-
-            double tempoAtual = tempoDecorrido.count();
-            somaTempos += tempoAtual; 
-
-            if(tempoAtual > tempoMax) {
-                tempoMax = tempoAtual;
-                vetorMaisLento = i + 1;
-            }
-            if(tempoAtual < tempoMin) {
-                tempoMin = tempoAtual;
-                vetorMaisRapido = i + 1;
-            }
+            
 
             if(n <= 20) {
                 cout << "Vetor " << i + 1 << " [Depois]: ";
                 imprimirVetor(vetorCopia, n);
             }
             
-            cout << ">> Tempo total do Vetor " << i + 1 << ": " << tempoAtual << " ms" << endl;
-            cout << "--------------------------------------------------" << endl;
+            
         }
-        double mediaCasos = somaTempos / m;
 
-        cout << "\n>>> ESTATÍSTICAS DO MÉTODO <<<" << endl;
-        cout << "Vetor mais LENTO: Vetor " << vetorMaisLento << " com " << tempoMax << " ms" << endl;
-        cout << "Vetor mais RÁPIDO: Vetor " << vetorMaisRapido << " com " << tempoMin << " ms" << endl;
-        cout << "Média de tempo dos " << m << " vetores: " << mediaCasos << " ms" << endl;
+        double mediaMelhorCaso = somaMelhorCaso / x;
+        double mediaPiorCaso = somaPiorCaso / x;
+        double mediaGeral = somaGeralTodosCasos / (m * x);
+
+        cout << "\n>>> ESTATISTICAS DO METODO <<<" << endl;
+        cout << "Media de tempo do MELHOR CASO (Vetor 1): " << mediaMelhorCaso << " ms" << endl;
+        cout << "Media de tempo do PIOR CASO (Vetor 2):   " << mediaPiorCaso << " ms" << endl;
+        cout << "Media GERAL de TODOS os casos juntos:    " << mediaGeral << " ms" << endl;
         cout << "==================================================" << endl;
     }
 
